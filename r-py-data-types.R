@@ -88,3 +88,49 @@ class(fruit)
 fruit[1,] #indexes in the same way as matrices
 fruit[2,1] <- "pineapple" #replaces banana with pineapple
 fruit
+
+#Select multiple elements
+x <- 1:10
+x[c(3,1,5)] #asking for the third, first, fifth elements (don't have to be in order)
+x[c(1,1,1)] #can also duplicate values
+x[c(1.2,5.3,7.2)] #truncates into integers and finds those positions
+
+#exclude elements with negative integers
+x[-10] #all the elements instead of the 10th one
+x[-c(2,4,6,8,10)] #getting rid of the even ones (multiple elements)
+x[c(-1,2)] #can't mix positive and negative vectors; creates an error
+
+#index with logical vectors
+x[c(TRUE, FALSE, FALSE, TRUE, FALSE,TRUE, FALSE, FALSE, TRUE, FALSE)] 
+#true is keep, false is throw away
+
+x[x>3] #don't see true/falses being generated, but it is what R is doing
+
+x[] #returns original vector
+x[0] #returns zero-length vector
+x[11] #returns NA
+
+# subsetting and assigning multiple values
+x <- 1:5
+x[c(1,2)] <- 2:3 #replacing values, have the give the same number that you subsetted 
+
+x[-1] <- 4:1 #replaces everything EXCEPT what's in the first position (so need 4 values)
+
+#subset rows in data frames based on conditions (logical subsetting)
+mtcars[mtcars$gear == 5,] #will show us all the rows where the value in gear column is 5
+mtcars[mtcars$gear == 5 & mtcars$cyl == 4, ]
+
+#shorthand version using the subset function
+subset(mtcars, gear == 5)
+subset(mtcars, gear == 5 & cyl == 4)
+
+#remove columns
+df <- data.frame(x = 1:3,
+                 y = 3:1,
+                 z = c("a", "b", "c"))
+df$z <- NULL #gets rid of column z!!
+df <- df[c("x","y")] #subsetting df but without z (accomplishes same thing as the line before)
+df[setdiff(names(df), "z")] #names() of a dataframe are the column names; this line finds difference between df and just column z, and then indexes the df without this difference (column "z")
+
+setdiff() #find differences between two vectors, which inputted as arguments into this function
+
